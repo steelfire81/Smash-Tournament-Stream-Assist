@@ -1,25 +1,16 @@
 package streamassist;
 
-import java.io.File;
-import java.nio.file.Path;
-
 public class CharacterIcon {
 
 	public static final String DEFAULT_NAME = "Other";
 	
 	private String name;
-	private File icon;
+	private String filename;
 	
-	public CharacterIcon(String n, File i)
+	public CharacterIcon(String n, String f)
 	{
 		name = n;
-		icon = i;
-	}
-	
-	// getIconPath - return the file path to the icon
-	public Path getIconPath()
-	{
-		return icon.toPath();
+		filename = f;
 	}
 	
 	// getName - return name
@@ -34,10 +25,10 @@ public class CharacterIcon {
 		return name;
 	}
 	
-	// getIcon - return the icon file
-	public File getIcon()
+	// getIconFilename - return the icon's filename
+	public String getIconFilename()
 	{
-		return icon;
+		return filename;
 	}
 	
 	// compareTo
