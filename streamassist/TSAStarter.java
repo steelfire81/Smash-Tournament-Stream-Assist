@@ -25,12 +25,18 @@ public class TSAStarter {
 	private static final String TITLE_SAVE = "Save Configuration?";
 	private static final String TITLE_MODE = "Icon Set";
 	
+	public static final String MODE_64_NAME = "64";
+	public static final int MODE_64 = 0;
 	public static final String MODE_MELEE_NAME = "Melee";
-	public static final int MODE_MELEE = 0;
+	public static final int MODE_MELEE = 1;
+	public static final String MODE_PM_NAME = "Project M";
+	public static final int MODE_PM = 2;
 	public static final String MODE_SMASH4_NAME = "Smash 4";
-	public static final int MODE_SMASH4 = 1;
+	public static final int MODE_SMASH4 = 3;
+	public static final String MODE_TEAMS_NAME = "Teams";
+	public static final int MODE_TEAMS = 4;
 	
-	private static final String[] MODE_OPTIONS = {MODE_MELEE_NAME, MODE_SMASH4_NAME};
+	public static final String[] MODE_OPTIONS = {MODE_64_NAME, MODE_MELEE_NAME, MODE_PM_NAME, MODE_SMASH4_NAME, MODE_TEAMS_NAME};
 	
 	
 	public static void main(String[] args)

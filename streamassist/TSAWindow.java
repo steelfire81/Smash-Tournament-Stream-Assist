@@ -18,6 +18,7 @@ public class TSAWindow {
 	private static final int NUM_BUTTONS = 2;
 	private static final int NUM_SCORE_COLS = 3; // column for -/+ buttons and score field
 	
+	private static final String BUTTON_CHANGE_TEXT = "Change Icon Set";
 	private static final String BUTTON_SWAP_TEXT = "Swap Players";
 	private static final String BUTTON_UPDATE_TEXT = "UPDATE";
 	private static final String BUTTON_PLUS_TEXT = "+";
@@ -25,13 +26,16 @@ public class TSAWindow {
 	
 	private static final String WINDOW_NAME = "Tourney Stream Assist";
 	private static final int WINDOW_WIDTH = 270;
-	private static final int WINDOW_HEIGHT = 245;
+	private static final int WINDOW_HEIGHT = 275;
 	
 	private static final String MSG_DESCRIPTION = "Description:";
 	
 	// Window Elements
+	JPanel modePanel;
 	JPanel mainPanel;
 	JPanel textPanel;
+	JComboBox modeBox;
+	JButton buttonChange;
 	JTextField[] namePrefixFields;
 	JTextField[] nameFields;
 	JTextField[] scorePrefixFields;
@@ -52,6 +56,16 @@ public class TSAWindow {
 		
 		// Initialize main panel
 		mainPanel = new JPanel(new BorderLayout());
+		
+		// Initialize icon set panel
+		modePanel = new JPanel(new GridLayout(1, 2));
+		modeBox = new JComboBox(TSAStarter.MODE_OPTIONS);
+		modeBox.setSelectedIndex(mode);
+		modePanel.add(modeBox);
+		buttonChange = new JButton(BUTTON_CHANGE_TEXT);
+		buttonChange.addActionListener(engine);
+		modePanel.add(buttonChange);
+		mainPanel.add(modePanel, BorderLayout.NORTH);
 		
 		// Initialize panel of text fields
 		textPanel = new JPanel(new GridLayout(NUM_GRID_ROWS, NUM_GRID_COLS));

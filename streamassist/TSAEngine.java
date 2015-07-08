@@ -8,9 +8,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-
 import java.util.Scanner;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class TSAEngine implements ActionListener {
@@ -29,8 +29,13 @@ public class TSAEngine implements ActionListener {
 	private static final String ICON_FILE_NAME = "iconlist";
 	private static final String ICON_FILE_EXTENSION = ".png";
 	
+	private static final String FOLDER_RESOURCES = "resources/";
+	
+	private static final String PREFIX_64 = "64_";
 	private static final String PREFIX_MELEE = "m_";
+	private static final String PREFIX_PM = "pm_";
 	private static final String PREFIX_SMASH4 = "4_";
+	private static final String PREFIX_TEAMS = "t_";
 	
 	private static final int MIN_SCORE = 0;
 	
@@ -70,6 +75,12 @@ public class TSAEngine implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		// Change button
+		if(e.getSource() == parent.buttonChange)
+		{
+			changeIconSet(parent.modeBox.getSelectedIndex());
+		}
+		
 		// Plus buttons
 		for(int i = 0; i < parent.buttonPlus.length; i++)
 			if(e.getSource() == parent.buttonPlus[i])
@@ -179,7 +190,7 @@ public class TSAEngine implements ActionListener {
 		if(icon1new != icon1curr)
 		{
 			String p1filename = iconList[icon1new].getIconFilename();
-			InputStream p1input = TSAEngine.class.getResourceAsStream(getPrefixForMode() + p1filename + ICON_FILE_EXTENSION);
+			InputStream p1input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p1filename + ICON_FILE_EXTENSION);
 			FileOutputStream p1output = new FileOutputStream(p1Icon, false);
 			p1output.getChannel().truncate(0);
 			int in = p1input.read();
@@ -197,7 +208,7 @@ public class TSAEngine implements ActionListener {
 		if(icon2new != icon2curr)
 		{
 			String p2filename = iconList[icon2new].getIconFilename();
-			InputStream p2input = TSAEngine.class.getResourceAsStream(getPrefixForMode() + p2filename + ICON_FILE_EXTENSION);
+			InputStream p2input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p2filename + ICON_FILE_EXTENSION);
 			FileOutputStream p2output = new FileOutputStream(p2Icon, false);
 			p2output.getChannel().truncate(0);
 			int in = p2input.read();
@@ -235,8 +246,9 @@ public class TSAEngine implements ActionListener {
 			System.exit(1);
 		}
 
-		icon1curr = parent.iconBoxes[0].getSelectedIndex();
-		icon2curr = parent.iconBoxes[1].getSelectedIndex();
+		// Set current icons to -1 to ensure they get updated the first time
+		icon1curr = -1;
+		icon2curr = -1;
 	}
 	
 	// getIconNames - return an array of strings for icon names
@@ -253,10 +265,7 @@ public class TSAEngine implements ActionListener {
 	private void setupIcons()
 	{
 		InputStream iconFile;
-		if(mode == TSAStarter.MODE_MELEE)
-			iconFile = TSAEngine.class.getResourceAsStream(PREFIX_MELEE + ICON_FILE_NAME);
-		else
-			iconFile = TSAEngine.class.getResourceAsStream(PREFIX_SMASH4 + ICON_FILE_NAME);
+		iconFile = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + ICON_FILE_NAME);
 		
 		Scanner fileScan = new Scanner(iconFile);
 		int numIcons = fileScan.nextInt();
@@ -281,8 +290,16 @@ public class TSAEngine implements ActionListener {
 	// getPrefixForMode - return the appropriate prefix for icon set
 	private String getPrefixForMode()
 	{
-		if(mode == TSAStarter.MODE_MELEE)
+		if(mode == TSAStarter.MODE_64)
+			return PREFIX_64;
+		else if(mode == TSAStarter.MODE_MELEE)
 			return PREFIX_MELEE;
+		else if(mode == TSAStarter.MODE_PM)
+			return PREFIX_PM;
+		else if(mode == TSAStarter.MODE_SMASH4)
+			return PREFIX_SMASH4;
+		else if(mode == TSAStarter.MODE_TEAMS)
+			return PREFIX_TEAMS;
 		else
 			return PREFIX_SMASH4;
 	}
@@ -346,6 +363,25 @@ public class TSAEngine implements ActionListener {
 		
 		parent.scoreFields[player].setText(Integer.toString(score));
 		updateText();
+	}
+	
+	// changeIconSet - change to different icon set (if different set is selected)
+	private void changeIconSet(int set)
+	{
+		// Only change icon set if mode has been changed
+		if(set != mode)
+		{
+			mode = set;
+			setupIcons();
+			for(int i = 0; i < parent.iconBoxes.length; i++)
+			{
+				parent.iconBoxes[i].removeAllItems();
+				for(int j = 0; j < iconList.length; j++)
+					parent.iconBoxes[i].addItem(iconList[j]);
+				
+				parent.iconBoxes[i].setSelectedIndex(0);
+			}
+		}
 	}
 	
 	// errorFNF - display an error message and quit when a file isn't found
