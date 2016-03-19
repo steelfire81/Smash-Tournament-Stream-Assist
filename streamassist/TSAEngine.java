@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class TSAEngine implements ActionListener {
@@ -126,7 +124,7 @@ public class TSAEngine implements ActionListener {
 		try
 		{
 			PrintWriter p1NameWriter = new PrintWriter(p1Name);
-			p1NameWriter.println(parent.nameFields[0].getText());
+			p1NameWriter.print(parent.nameFields[0].getText());
 			p1NameWriter.close();
 		}
 		catch(IOException e)
@@ -137,7 +135,7 @@ public class TSAEngine implements ActionListener {
 		try
 		{
 			PrintWriter p2NameWriter = new PrintWriter(p2Name);
-			p2NameWriter.println(parent.nameFields[1].getText());
+			p2NameWriter.print(parent.nameFields[1].getText());
 			p2NameWriter.close();
 		}
 		catch(IOException e)
@@ -148,7 +146,7 @@ public class TSAEngine implements ActionListener {
 		try
 		{
 			PrintWriter p1ScoreWriter = new PrintWriter(p1Score);
-			p1ScoreWriter.println(parent.scoreFields[0].getText());
+			p1ScoreWriter.print(parent.scoreFields[0].getText());
 			p1ScoreWriter.close();
 		}
 		catch(IOException e)
@@ -159,7 +157,7 @@ public class TSAEngine implements ActionListener {
 		try
 		{
 			PrintWriter p2ScoreWriter = new PrintWriter(p2Score);
-			p2ScoreWriter.println(parent.scoreFields[1].getText());
+			p2ScoreWriter.print(parent.scoreFields[1].getText());
 			p2ScoreWriter.close();
 		}
 		catch(IOException e)
@@ -170,7 +168,7 @@ public class TSAEngine implements ActionListener {
 		try
 		{
 			PrintWriter descriptionWriter = new PrintWriter(description);
-			descriptionWriter.println(parent.descriptionField.getText());
+			descriptionWriter.print(parent.descriptionField.getText());
 			descriptionWriter.close();
 		}
 		catch(IOException e)
