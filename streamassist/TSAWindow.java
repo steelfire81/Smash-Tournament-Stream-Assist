@@ -3,7 +3,9 @@ package streamassist;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.io.File;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,16 +36,20 @@ public class TSAWindow {
 	JPanel modePanel;
 	JPanel mainPanel;
 	JPanel textPanel;
-	JComboBox modeBox;
+	JComboBox<String> modeBox;
 	JButton buttonChange;
+	JCheckBox[] nameFieldCheckboxes;
 	JTextField[] namePrefixFields;
 	JTextField[] nameFields;
+	JCheckBox[] scoreFieldCheckboxes;
 	JTextField[] scorePrefixFields;
 	JTextField[] scoreFields;
 	JButton[] buttonMinus;
 	JButton[] buttonPlus;
+	JCheckBox[] iconCheckboxes;
 	JTextField[] iconPrefixFields;
-	JComboBox[] iconBoxes;
+	JComboBox<String>[] iconBoxes;
+	JCheckBox descriptionCheckbox;
 	JTextField descriptionField;
 	JButton buttonSwap;
 	JButton buttonUpdate;
@@ -59,7 +65,7 @@ public class TSAWindow {
 		
 		// Initialize icon set panel
 		modePanel = new JPanel(new GridLayout(1, 2));
-		modeBox = new JComboBox(TSAStarter.MODE_OPTIONS);
+		modeBox = new JComboBox<String>(TSAStarter.MODE_OPTIONS);
 		modeBox.setSelectedIndex(mode);
 		modePanel.add(modeBox);
 		buttonChange = new JButton(BUTTON_CHANGE_TEXT);
@@ -69,28 +75,41 @@ public class TSAWindow {
 		
 		// Initialize panel of text fields
 		textPanel = new JPanel(new GridLayout(NUM_GRID_ROWS, NUM_GRID_COLS));
+		nameFieldCheckboxes = new JCheckBox[NUM_PLAYERS];
 		namePrefixFields = new JTextField[NUM_PLAYERS];
 		nameFields = new JTextField[NUM_PLAYERS];
+		scoreFieldCheckboxes = new JCheckBox[NUM_PLAYERS];
 		scorePrefixFields = new JTextField[NUM_PLAYERS];
 		scoreFields = new JTextField[NUM_PLAYERS];
 		buttonPlus = new JButton[NUM_PLAYERS];
 		buttonMinus = new JButton[NUM_PLAYERS];
+		iconCheckboxes = new JCheckBox[NUM_PLAYERS];
 		iconPrefixFields = new JTextField[NUM_PLAYERS];
 		iconBoxes = new JComboBox[NUM_PLAYERS];
 		for(int i = 0; i < NUM_PLAYERS; i++)
 		{
+			JPanel namePrefixPanel = new JPanel(new BorderLayout());
+			nameFieldCheckboxes[i] = new JCheckBox();
+			nameFieldCheckboxes[i].addActionListener(engine);
 			namePrefixFields[i] = new JTextField();
 			namePrefixFields[i].setEditable(false);
 			namePrefixFields[i].setText(playerNamePrefix(i + 1));
-			textPanel.add(namePrefixFields[i]);
+			namePrefixPanel.add(nameFieldCheckboxes[i], BorderLayout.WEST);
+			namePrefixPanel.add(namePrefixFields[i], BorderLayout.CENTER);
+			textPanel.add(namePrefixPanel);
 			
 			nameFields[i] = new JTextField();
 			textPanel.add(nameFields[i]);
 			
+			JPanel scorePrefixPanel = new JPanel(new BorderLayout());
+			scoreFieldCheckboxes[i] = new JCheckBox();
+			scoreFieldCheckboxes[i].addActionListener(engine);
 			scorePrefixFields[i] = new JTextField();
 			scorePrefixFields[i].setEditable(false);
 			scorePrefixFields[i].setText(playerScorePrefix(i + 1));
-			textPanel.add(scorePrefixFields[i]);
+			scorePrefixPanel.add(scoreFieldCheckboxes[i], BorderLayout.WEST);
+			scorePrefixPanel.add(scorePrefixFields[i], BorderLayout.CENTER);
+			textPanel.add(scorePrefixPanel);
 			
 			// For score, add - button, text field, and + button
 			JPanel scorePanel = new JPanel(new GridLayout(1, NUM_SCORE_COLS));
@@ -104,19 +123,30 @@ public class TSAWindow {
 			scorePanel.add(buttonPlus[i]);
 			textPanel.add(scorePanel);
 			
+			JPanel iconPrefixPanel = new JPanel(new BorderLayout());
+			iconCheckboxes[i] = new JCheckBox();
+			iconCheckboxes[i].addActionListener(engine);
 			iconPrefixFields[i] = new JTextField();
 			iconPrefixFields[i].setEditable(false);
 			iconPrefixFields[i].setText(playerIconPrefix(i + 1));
-			textPanel.add(iconPrefixFields[i]);
+			iconPrefixPanel.add(iconCheckboxes[i], BorderLayout.WEST);
+			iconPrefixPanel.add(iconPrefixFields[i], BorderLayout.CENTER);
+			textPanel.add(iconPrefixPanel);
 			
-			iconBoxes[i] = new JComboBox(engine.getIconNames());
+			iconBoxes[i] = new JComboBox<String>(engine.getIconNames());
 			iconBoxes[i].setSelectedIndex(0);
 			textPanel.add(iconBoxes[i]);
 		}
+		
 		// Add description fields
+		JPanel descriptionPrefixPanel = new JPanel(new BorderLayout());
+		descriptionCheckbox = new JCheckBox();
+		descriptionCheckbox.addActionListener(engine);
 		JTextField descriptionPrefixField = new JTextField(MSG_DESCRIPTION);
 		descriptionPrefixField.setEditable(false);
-		textPanel.add(descriptionPrefixField);
+		descriptionPrefixPanel.add(descriptionCheckbox, BorderLayout.WEST);
+		descriptionPrefixPanel.add(descriptionPrefixField, BorderLayout.CENTER);
+		textPanel.add(descriptionPrefixPanel);
 		descriptionField = new JTextField();
 		textPanel.add(descriptionField);
 		mainPanel.add(textPanel, BorderLayout.CENTER);

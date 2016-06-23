@@ -9,19 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 public class TSAEngine implements ActionListener {
 	
 	// Constants
 	private static final int DEFAULT_SCORE = 0;
 	private static final String DEFAULT_NAME = "";
-	
-	private static final String MSG_FILE_P1NAME = "Player 1 Name";
-	private static final String MSG_FILE_P2NAME = "Player 2 Name";
-	private static final String MSG_FILE_P1SCORE = "Player 1 Score";
-	private static final String MSG_FILE_P2SCORE = "Player 2 Score";
-	private static final String MSG_FILE_DESCRIPTION = "Description";
 	
 	private static final String ICON_FILE_NAME = "iconlist";
 	private static final String ICON_FILE_EXTENSION = ".png";
@@ -396,7 +389,7 @@ public class TSAEngine implements ActionListener {
 			{
 				parent.iconBoxes[i].removeAllItems();
 				for(int j = 0; j < iconList.length; j++)
-					parent.iconBoxes[i].addItem(iconList[j]);
+					parent.iconBoxes[i].addItem(iconList[j].toString());
 				
 				parent.iconBoxes[i].setSelectedIndex(0);
 			}
