@@ -22,7 +22,6 @@ public class TSAEngine implements ActionListener {
 	private static final String MSG_FILE_P1SCORE = "Player 1 Score";
 	private static final String MSG_FILE_P2SCORE = "Player 2 Score";
 	private static final String MSG_FILE_DESCRIPTION = "Description";
-	private static final String MSG_ERR_FNF = "ERROR: Could not find file for ";
 	
 	private static final String ICON_FILE_NAME = "iconlist";
 	private static final String ICON_FILE_EXTENSION = ".png";
@@ -36,9 +35,6 @@ public class TSAEngine implements ActionListener {
 	private static final String PREFIX_TEAMS = "t_";
 	
 	private static final int MIN_SCORE = 0;
-	
-	private static final String TITLE_FNF = "File Not Found";
-	
 	
 	// Data Members
 	private TSAWindow parent;
@@ -121,59 +117,84 @@ public class TSAEngine implements ActionListener {
 	// updateText - only update text files (not images)
 	private void updateText()
 	{
-		try
+		// Update P1 name text
+		if(p1Name != null)
 		{
-			PrintWriter p1NameWriter = new PrintWriter(p1Name);
-			p1NameWriter.print(parent.nameFields[0].getText());
-			p1NameWriter.close();
-		}
-		catch(IOException e)
-		{
-			errorFNF(MSG_FILE_P1NAME);
-		}
-		
-		try
-		{
-			PrintWriter p2NameWriter = new PrintWriter(p2Name);
-			p2NameWriter.print(parent.nameFields[1].getText());
-			p2NameWriter.close();
-		}
-		catch(IOException e)
-		{
-			errorFNF(MSG_FILE_P2NAME);
+			try
+			{
+				PrintWriter p1NameWriter = new PrintWriter(p1Name);
+				p1NameWriter.print(parent.nameFields[0].getText());
+				p1NameWriter.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error writing to " + p1Name.getName());
+				p1Name = null;
+			}
 		}
 		
-		try
+		// Update P2 name text
+		if(p2Name != null)
 		{
-			PrintWriter p1ScoreWriter = new PrintWriter(p1Score);
-			p1ScoreWriter.print(parent.scoreFields[0].getText());
-			p1ScoreWriter.close();
-		}
-		catch(IOException e)
-		{
-			errorFNF(MSG_FILE_P1SCORE);
-		}
-		
-		try
-		{
-			PrintWriter p2ScoreWriter = new PrintWriter(p2Score);
-			p2ScoreWriter.print(parent.scoreFields[1].getText());
-			p2ScoreWriter.close();
-		}
-		catch(IOException e)
-		{
-			errorFNF(MSG_FILE_P2SCORE);
+			try
+			{
+				PrintWriter p2NameWriter = new PrintWriter(p2Name);
+				p2NameWriter.print(parent.nameFields[1].getText());
+				p2NameWriter.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error writing to " + p2Name.getName());
+				p2Name = null;
+			}
 		}
 		
-		try
+		// Update P1 score text
+		if(p1Score != null)
 		{
-			PrintWriter descriptionWriter = new PrintWriter(description);
-			descriptionWriter.print(parent.descriptionField.getText());
-			descriptionWriter.close();
+			try
+			{
+				PrintWriter p1ScoreWriter = new PrintWriter(p1Score);
+				p1ScoreWriter.print(parent.scoreFields[0].getText());
+				p1ScoreWriter.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error writing to " + p1Score.getName());
+				p1Score = null;
+			}
 		}
-		catch(IOException e)
+		
+		// Update P2 score text
+		if(p2Score != null)
 		{
-			errorFNF(MSG_FILE_DESCRIPTION);
+			try
+			{
+				PrintWriter p2ScoreWriter = new PrintWriter(p2Score);
+				p2ScoreWriter.print(parent.scoreFields[1].getText());
+				p2ScoreWriter.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error writing to " + p2Score.getName());
+				p2Score = null;
+			}
+		}
+		
+		// Update round description text
+		if(description != null)
+		{
+			try
+			{
+				PrintWriter descriptionWriter = new PrintWriter(description);
+				descriptionWriter.print(parent.descriptionField.getText());
+				descriptionWriter.close();
+			}
+			catch(IOException e)
+			{
+				System.err.println("Error writing to " + description.getName());
+				description = null;
+			}
 		}
 	}
 	
@@ -380,13 +401,6 @@ public class TSAEngine implements ActionListener {
 				parent.iconBoxes[i].setSelectedIndex(0);
 			}
 		}
-	}
-	
-	// errorFNF - display an error message and quit when a file isn't found
-	private void errorFNF(String filename)
-	{
-		JOptionPane.showMessageDialog(parent.buttonUpdate, MSG_ERR_FNF + filename, TITLE_FNF, JOptionPane.ERROR_MESSAGE);
-		System.exit(1);
 	}
 	
 	// Sorting Functions
