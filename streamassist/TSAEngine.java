@@ -3,7 +3,6 @@ package streamassist;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,24 +93,30 @@ public class TSAEngine implements ActionListener {
 		
 		// Update Button
 		if(e.getSource() == parent.buttonUpdate)
-		{
-			try
-			{
-				updateFiles();
-			}
-			catch(IOException ioe)
-			{
-				ioe.printStackTrace();
-				System.exit(1);
-			}
-		}
+			updateFiles();
+		
+		// Checkboxes
+		for(int i = 0; i < parent.nameFieldCheckboxes.length; i++)
+			if(e.getSource() == parent.nameFieldCheckboxes[i])
+				System.out.println("Name Checkbox " + i);
+		
+		for(int i = 0; i < parent.scoreFieldCheckboxes.length; i++)
+			if(e.getSource() == parent.scoreFieldCheckboxes[i])
+				System.out.println("Score Checkbox " + i);
+		
+		for(int i = 0; i < parent.iconCheckboxes.length; i++)
+			if(e.getSource() == parent.iconCheckboxes[i])
+				System.out.println("Icon Checkbox " + i);
+		
+		if(e.getSource() == parent.descriptionCheckbox)
+			System.out.println("Description Checkbox");
 	}
 	
 	// updateText - only update text files (not images)
 	private void updateText()
 	{
 		// Update P1 name text
-		if(p1Name != null)
+		if(parent.nameFieldCheckboxes[0].isSelected())
 		{
 			try
 			{
@@ -122,12 +127,12 @@ public class TSAEngine implements ActionListener {
 			catch(IOException e)
 			{
 				System.err.println("Error writing to " + p1Name.getName());
-				p1Name = null;
+				parent.nameFieldCheckboxes[0].setSelected(false);
 			}
 		}
 		
 		// Update P2 name text
-		if(p2Name != null)
+		if(parent.nameFieldCheckboxes[1].isSelected())
 		{
 			try
 			{
@@ -138,12 +143,12 @@ public class TSAEngine implements ActionListener {
 			catch(IOException e)
 			{
 				System.err.println("Error writing to " + p2Name.getName());
-				p2Name = null;
+				parent.nameFieldCheckboxes[1].setSelected(false);
 			}
 		}
 		
 		// Update P1 score text
-		if(p1Score != null)
+		if(parent.scoreFieldCheckboxes[0].isSelected())
 		{
 			try
 			{
@@ -154,12 +159,12 @@ public class TSAEngine implements ActionListener {
 			catch(IOException e)
 			{
 				System.err.println("Error writing to " + p1Score.getName());
-				p1Score = null;
+				parent.scoreFieldCheckboxes[0].setSelected(false);
 			}
 		}
 		
 		// Update P2 score text
-		if(p2Score != null)
+		if(parent.scoreFieldCheckboxes[1].isSelected())
 		{
 			try
 			{
@@ -170,12 +175,12 @@ public class TSAEngine implements ActionListener {
 			catch(IOException e)
 			{
 				System.err.println("Error writing to " + p2Score.getName());
-				p2Score = null;
+				parent.scoreFieldCheckboxes[1].setSelected(false);
 			}
 		}
 		
 		// Update round description text
-		if(description != null)
+		if(parent.descriptionCheckbox.isSelected())
 		{
 			try
 			{
@@ -186,51 +191,73 @@ public class TSAEngine implements ActionListener {
 			catch(IOException e)
 			{
 				System.err.println("Error writing to " + description.getName());
-				description = null;
+				parent.descriptionCheckbox.setSelected(false);
 			}
 		}
 	}
 	
 	// updateFiles - update linked files
-	private void updateFiles() throws IOException
+	private void updateFiles()
 	{
 		// Update text files
 		updateText();
 		
 		// Write p1 file
-		int icon1new = parent.iconBoxes[0].getSelectedIndex();
-		if(icon1new != icon1curr)
+		if(parent.iconCheckboxes[0].isSelected())
 		{
-			String p1filename = iconList[icon1new].getIconFilename();
-			InputStream p1input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p1filename + ICON_FILE_EXTENSION);
-			FileOutputStream p1output = new FileOutputStream(p1Icon, false);
-			p1output.getChannel().truncate(0);
-			int in = p1input.read();
-			while(in != -1)
+			try
 			{
-				p1output.write(in);
-				in = p1input.read();
+				int icon1new = parent.iconBoxes[0].getSelectedIndex();
+				if(icon1new != icon1curr)
+				{
+					String p1filename = iconList[icon1new].getIconFilename();
+					InputStream p1input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p1filename + ICON_FILE_EXTENSION);
+					FileOutputStream p1output = new FileOutputStream(p1Icon, false);
+					p1output.getChannel().truncate(0);
+					int in = p1input.read();
+					while(in != -1)
+					{
+						p1output.write(in);
+						in = p1input.read();
+					}
+					p1input.close();
+					p1output.close();
+				}
 			}
-			p1input.close();
-			p1output.close();
+			catch(IOException ioe)
+			{
+				System.err.println("Error writing to " + p1Icon.getName());
+				parent.iconCheckboxes[0].setSelected(false);
+			}
 		}
 		
 		// Write p2 file
-		int icon2new = parent.iconBoxes[1].getSelectedIndex();
-		if(icon2new != icon2curr)
+		if(parent.iconCheckboxes[1].isSelected())
 		{
-			String p2filename = iconList[icon2new].getIconFilename();
-			InputStream p2input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p2filename + ICON_FILE_EXTENSION);
-			FileOutputStream p2output = new FileOutputStream(p2Icon, false);
-			p2output.getChannel().truncate(0);
-			int in = p2input.read();
-			while(in != -1)
+			try
 			{
-				p2output.write(in);
-				in = p2input.read();
+				int icon2new = parent.iconBoxes[1].getSelectedIndex();
+				if(icon2new != icon2curr)
+				{
+					String p2filename = iconList[icon2new].getIconFilename();
+					InputStream p2input = TSAEngine.class.getResourceAsStream(FOLDER_RESOURCES + getPrefixForMode() + p2filename + ICON_FILE_EXTENSION);
+					FileOutputStream p2output = new FileOutputStream(p2Icon, false);
+					p2output.getChannel().truncate(0);
+					int in = p2input.read();
+					while(in != -1)
+					{
+						p2output.write(in);
+						in = p2input.read();
+					}
+					p2input.close();
+					p2output.close();
+				}
 			}
-			p2input.close();
-			p2output.close();
+			catch(IOException ioe)
+			{
+				System.err.println("Error writing to " + p2Icon.getName());
+				parent.iconCheckboxes[1].setSelected(false);
+			}
 		}
 	}
 	
@@ -243,20 +270,7 @@ public class TSAEngine implements ActionListener {
 		for(int i = 0; i < parent.scoreFields.length; i++)
 			parent.scoreFields[i].setText(Integer.toString(DEFAULT_SCORE));
 		
-		try
-		{
-			updateFiles();
-		}
-		catch(FileNotFoundException e)
-		{
-			e.printStackTrace();
-			System.exit(1);
-		}
-		catch(IOException ioe)
-		{
-			ioe.printStackTrace();
-			System.exit(1);
-		}
+		updateFiles();
 
 		// Set current icons to -1 to ensure they get updated the first time
 		icon1curr = -1;
