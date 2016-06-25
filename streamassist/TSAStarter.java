@@ -76,72 +76,87 @@ public class TSAStarter {
 		}
 		else // "no" selected - create new configuration
 		{
+			// Get P1 name file
 			JOptionPane.showMessageDialog(null, MSG_P1_NAME);
 			JFileChooser selector = new JFileChooser();
 			selector.setCurrentDirectory(null);
 			result = selector.showOpenDialog(null);
 			if(result == JFileChooser.APPROVE_OPTION)
+				p1name = selector.getSelectedFile();
+			else
+				p1name = null;
+			
+			// Get P2 name file
+			JOptionPane.showMessageDialog(null, MSG_P2_NAME);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				p2name = selector.getSelectedFile();
+			else
+				p2name = null;
+			
+			// Get P1 score file
+			JOptionPane.showMessageDialog(null, MSG_P1_SCORE);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				p1score = selector.getSelectedFile();
+			else
+				p1score = null;
+			
+			// Get P2 score file
+			JOptionPane.showMessageDialog(null, MSG_P2_SCORE);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				p2score = selector.getSelectedFile();
+			else
+				p2score = null;
+			
+			// Get P1 icon file
+			JOptionPane.showMessageDialog(null, MSG_P1_ICON);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				p1icon = selector.getSelectedFile();
+			else
+				p1icon = null;
+			
+			// Get P2 icon file
+			JOptionPane.showMessageDialog(null, MSG_P2_ICON);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				p2icon = selector.getSelectedFile();
+			else
+				p2icon = null;
+			
+			// Get description file
+			JOptionPane.showMessageDialog(null, MSG_DESCRIPTION);
+			result = selector.showOpenDialog(null);
+			if(result == JFileChooser.APPROVE_OPTION)
+				description = selector.getSelectedFile();
+			else
+				description = null;
+			
+			int mode = JOptionPane.showOptionDialog(null, MSG_MODE, TITLE_MODE, JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, MODE_OPTIONS, 0);
+										
+			// Ask user to save configuration
+			result = JOptionPane.showConfirmDialog(null, MSG_SAVE, TITLE_SAVE, JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION)
 			{
-				p1name = selector.getSelectedFile();	
-				JOptionPane.showMessageDialog(null, MSG_P2_NAME);
-				result = selector.showOpenDialog(null);
+				result = selector.showSaveDialog(null);
 				if(result == JFileChooser.APPROVE_OPTION)
 				{
-					p2name = selector.getSelectedFile();
-					JOptionPane.showMessageDialog(null, MSG_P1_SCORE);
-					result = selector.showOpenDialog(null);
-					if(result == JFileChooser.APPROVE_OPTION)
+					try
 					{
-						p1score = selector.getSelectedFile();
-						JOptionPane.showMessageDialog(null, MSG_P2_SCORE);
-						result = selector.showOpenDialog(null);
-						if(result == JFileChooser.APPROVE_OPTION)
-						{
-							p2score = selector.getSelectedFile();
-							JOptionPane.showMessageDialog(null, MSG_P1_ICON);
-							result = selector.showOpenDialog(null);
-							if(result == JFileChooser.APPROVE_OPTION)
-							{
-								p1icon = selector.getSelectedFile();
-								JOptionPane.showMessageDialog(null, MSG_P2_ICON);
-								result = selector.showOpenDialog(null);
-								if(result == JFileChooser.APPROVE_OPTION)
-								{
-									p2icon = selector.getSelectedFile();
-									JOptionPane.showMessageDialog(null, MSG_DESCRIPTION);
-									result = selector.showOpenDialog(null);
-									if(result == JFileChooser.APPROVE_OPTION)
-									{
-										description = selector.getSelectedFile();
-										int mode = getMode();
-										
-										// Ask user to save configuration
-										result = JOptionPane.showConfirmDialog(null, MSG_SAVE, TITLE_SAVE, JOptionPane.YES_NO_OPTION);
-										if(result == JOptionPane.YES_OPTION)
-										{
-											result = selector.showSaveDialog(null);
-											if(result == JFileChooser.APPROVE_OPTION)
-											{
-												try
-												{
-													writeConfig(selector.getSelectedFile(), p1name, p2name, p1score, p2score, p1icon, p2icon, description, mode);
-												}
-												catch(FileNotFoundException fnf)
-												{
-													System.err.println(MSG_ERR_FNF);
-													System.exit(1);
-												}
-											}
-										}
-										
-										new TSAWindow(p1name, p2name, p1score, p2score, p1icon, p2icon, description, mode);	
-									}
-								}
-							}
-						}
+						writeConfig(selector.getSelectedFile(), p1name, p2name, p1score, p2score, p1icon, p2icon, description, mode);
+					}
+					catch(FileNotFoundException fnf)
+					{
+						System.err.println(MSG_ERR_FNF);
+						System.exit(1);
 					}
 				}
 			}
+			
+			new TSAWindow(p1name, p2name, p1score, p2score, p1icon, p2icon, description, mode);	
 		}
 	}
 	
@@ -179,12 +194,5 @@ public class TSAStarter {
 		fileScan.close();
 		
 		new TSAWindow(p1n, p2n, p1s, p2s, p1i, p2i, description, mode);
-	}
-	
-	// getMode - return an int corresponding to the icon mode the user wants to use
-	private static int getMode()
-	{
-		return JOptionPane.showOptionDialog(null, MSG_MODE, TITLE_MODE, JOptionPane.OK_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, MODE_OPTIONS, 0);
 	}
 }

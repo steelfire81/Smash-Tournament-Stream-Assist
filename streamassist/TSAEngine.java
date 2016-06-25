@@ -275,6 +275,15 @@ public class TSAEngine implements ActionListener {
 		// Set current icons to -1 to ensure they get updated the first time
 		icon1curr = -1;
 		icon2curr = -1;
+		
+		// Check appropriate checkboxes
+		parent.nameFieldCheckboxes[0].setSelected(p1Name == null);
+		parent.nameFieldCheckboxes[1].setSelected(p2Name == null);
+		parent.scoreFieldCheckboxes[0].setSelected(p1Score == null);
+		parent.scoreFieldCheckboxes[1].setSelected(p2Score == null);
+		parent.iconCheckboxes[0].setSelected(p1Icon == null);
+		parent.iconCheckboxes[1].setSelected(p2Icon == null);
+		parent.descriptionCheckbox.setSelected(description == null);
 	}
 	
 	// getIconNames - return an array of strings for icon names
