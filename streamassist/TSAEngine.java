@@ -63,22 +63,26 @@ public class TSAEngine implements ActionListener {
 	{
 		// Change button
 		if(e.getSource() == parent.buttonChange)
-		{
 			changeIconSet(parent.modeBox.getSelectedIndex());
-		}
 		
-		// Plus buttons
-		for(int i = 0; i < parent.buttonPlus.length; i++)
-			if(e.getSource() == parent.buttonPlus[i])
-				plusScore(i);
+		// P1 plus button
+		else if(e.getSource() == parent.buttonPlus[0])
+			plusScore(0);
 		
-		// Minus buttons
-		for(int i = 0; i < parent.buttonMinus.length; i++)
-			if(e.getSource() == parent.buttonMinus[i])
-				minusScore(i);
+		// P2 plus button
+		else if(e.getSource() == parent.buttonPlus[1])
+			plusScore(1);
+		
+		// P1 minus button
+		else if(e.getSource() == parent.buttonMinus[0])
+			minusScore(0);
+		
+		// P2 minus button
+		else if(e.getSource() == parent.buttonMinus[1])
+			minusScore(1);
 		
 		// Swap Button
-		if(e.getSource() == parent.buttonSwap)
+		else if(e.getSource() == parent.buttonSwap)
 		{
 			try
 			{
@@ -92,24 +96,50 @@ public class TSAEngine implements ActionListener {
 		}	
 		
 		// Update Button
-		if(e.getSource() == parent.buttonUpdate)
+		else if(e.getSource() == parent.buttonUpdate)
 			updateFiles();
 		
-		// Checkboxes
-		for(int i = 0; i < parent.nameFieldCheckboxes.length; i++)
-			if(e.getSource() == parent.nameFieldCheckboxes[i])
-				System.out.println("Name Checkbox " + i);
+		// P1 name checkbox
+		else if(e.getSource() == parent.nameFieldCheckboxes[0])
+		{
+			
+		}
 		
-		for(int i = 0; i < parent.scoreFieldCheckboxes.length; i++)
-			if(e.getSource() == parent.scoreFieldCheckboxes[i])
-				System.out.println("Score Checkbox " + i);
+		// P2 name checkbox
+		else if(e.getSource() == parent.nameFieldCheckboxes[1])
+		{
+			
+		}
 		
-		for(int i = 0; i < parent.iconCheckboxes.length; i++)
-			if(e.getSource() == parent.iconCheckboxes[i])
-				System.out.println("Icon Checkbox " + i);
+		// P1 score checkbox
+		else if(e.getSource() == parent.scoreFieldCheckboxes[0])
+		{
+			
+		}
 		
-		if(e.getSource() == parent.descriptionCheckbox)
-			System.out.println("Description Checkbox");
+		// P2 score checkbox
+		else if(e.getSource() == parent.scoreFieldCheckboxes[1])
+		{
+			
+		}
+		
+		// P1 icon checkbox
+		else if(e.getSource() == parent.iconCheckboxes[0])
+		{
+			
+		}
+		
+		// P2 icon checkbox
+		else if(e.getSource() == parent.iconCheckboxes[1])
+		{
+			
+		}
+		
+		// Description checkbox
+		else if(e.getSource() == parent.descriptionCheckbox)
+		{
+			
+		}
 	}
 	
 	// updateText - only update text files (not images)
