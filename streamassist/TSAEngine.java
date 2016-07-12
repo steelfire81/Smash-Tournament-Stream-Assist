@@ -102,43 +102,97 @@ public class TSAEngine implements ActionListener {
 		// P1 name checkbox
 		else if(e.getSource() == parent.nameFieldCheckboxes[0])
 		{
-			
+			if(parent.nameFieldCheckboxes[0].isSelected())
+			{
+				// TODO: Ask to select new P1 name file
+				parent.nameFields[0].setEnabled(true);
+			}
+			else
+				parent.nameFields[0].setEnabled(false);
 		}
 		
 		// P2 name checkbox
 		else if(e.getSource() == parent.nameFieldCheckboxes[1])
 		{
-			
+			if(parent.nameFieldCheckboxes[1].isSelected())
+			{
+				// TODO: Ask to select new P2 name file
+				parent.nameFields[1].setEnabled(true);
+			}
+			else
+				parent.nameFields[1].setEnabled(false);
 		}
 		
 		// P1 score checkbox
 		else if(e.getSource() == parent.scoreFieldCheckboxes[0])
 		{
-			
+			if(parent.scoreFieldCheckboxes[0].isSelected())
+			{
+				// TODO: Ask to select new P1 score file
+				parent.scoreFields[0].setEnabled(true);
+				parent.buttonPlus[0].setEnabled(true);
+				parent.buttonMinus[0].setEnabled(true);
+			}
+			else
+			{
+				parent.scoreFields[0].setEnabled(false);
+				parent.buttonPlus[0].setEnabled(false);
+				parent.buttonMinus[0].setEnabled(false);
+			}
 		}
 		
 		// P2 score checkbox
 		else if(e.getSource() == parent.scoreFieldCheckboxes[1])
 		{
-			
+			if(parent.scoreFieldCheckboxes[1].isSelected())
+			{
+				// TODO: Ask to select new P2 score file
+				parent.scoreFields[1].setEnabled(true);
+				parent.buttonPlus[1].setEnabled(true);
+				parent.buttonMinus[1].setEnabled(true);
+			}
+			else
+			{
+				parent.scoreFields[1].setEnabled(false);
+				parent.buttonPlus[1].setEnabled(false);
+				parent.buttonMinus[1].setEnabled(false);
+			}
 		}
 		
 		// P1 icon checkbox
 		else if(e.getSource() == parent.iconCheckboxes[0])
 		{
-			
+			if(parent.iconCheckboxes[0].isSelected())
+			{
+				// TODO: Ask to select new P1 icon file
+				parent.iconBoxes[0].setEnabled(true);
+			}
+			else
+				parent.iconBoxes[0].setEnabled(false);
 		}
 		
 		// P2 icon checkbox
 		else if(e.getSource() == parent.iconCheckboxes[1])
 		{
-			
+			if(parent.iconCheckboxes[1].isSelected())
+			{
+				// TODO: Ask to select new P2 icon file
+				parent.iconBoxes[1].setEnabled(true);
+			}
+			else
+				parent.iconBoxes[1].setEnabled(false);
 		}
 		
 		// Description checkbox
 		else if(e.getSource() == parent.descriptionCheckbox)
 		{
-			
+			if(parent.descriptionCheckbox.isSelected())
+			{
+				// TODO: Ask to select new description file
+				parent.descriptionField.setEnabled(true);
+			}
+			else
+				parent.descriptionField.setEnabled(false);
 		}
 	}
 	
