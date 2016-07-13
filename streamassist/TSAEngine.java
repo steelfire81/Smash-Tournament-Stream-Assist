@@ -361,13 +361,30 @@ public class TSAEngine implements ActionListener {
 		icon2curr = -1;
 		
 		// Check appropriate checkboxes
-		parent.nameFieldCheckboxes[0].setSelected(p1Name == null);
-		parent.nameFieldCheckboxes[1].setSelected(p2Name == null);
-		parent.scoreFieldCheckboxes[0].setSelected(p1Score == null);
-		parent.scoreFieldCheckboxes[1].setSelected(p2Score == null);
-		parent.iconCheckboxes[0].setSelected(p1Icon == null);
-		parent.iconCheckboxes[1].setSelected(p2Icon == null);
-		parent.descriptionCheckbox.setSelected(description == null);
+		parent.nameFieldCheckboxes[0].setSelected(!(p1Name == null));
+		parent.nameFields[0].setEnabled(!(p1Name == null));
+		
+		parent.nameFieldCheckboxes[1].setSelected(!(p2Name == null));
+		parent.nameFields[1].setEnabled(!(p2Name == null));
+		
+		parent.scoreFieldCheckboxes[0].setSelected(!(p1Score == null));
+		parent.scoreFields[0].setEnabled(!(p1Score == null));
+		parent.buttonPlus[0].setEnabled(!(p1Score == null));
+		parent.buttonMinus[0].setEnabled(!(p1Score == null));
+		
+		parent.scoreFieldCheckboxes[1].setSelected(!(p2Score == null));
+		parent.scoreFields[1].setEnabled(!(p2Score == null));
+		parent.buttonPlus[1].setEnabled(!(p2Score == null));
+		parent.buttonMinus[1].setEnabled(!(p2Score == null));
+		
+		parent.iconCheckboxes[0].setSelected(!(p1Icon == null));
+		parent.iconBoxes[0].setEnabled(!(p1Icon == null));
+		
+		parent.iconCheckboxes[1].setSelected(!(p2Icon == null));
+		parent.iconBoxes[1].setEnabled(!(p2Icon == null));
+		
+		parent.descriptionCheckbox.setSelected(!(description == null));
+		parent.descriptionField.setEnabled(!(description == null));
 	}
 	
 	// getIconNames - return an array of strings for icon names
