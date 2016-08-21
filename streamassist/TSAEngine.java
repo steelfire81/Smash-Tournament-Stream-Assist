@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import javax.swing.JFileChooser;
+
 public class TSAEngine implements ActionListener {
 	
 	// Constants
@@ -104,8 +106,14 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.nameFieldCheckboxes[0].isSelected())
 			{
-				// TODO: Ask to select new P1 name file
-				parent.nameFields[0].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.nameFieldCheckboxes[0]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p1Name = selector.getSelectedFile();
+				
+				parent.nameFieldCheckboxes[0].setSelected(p1Name != null);
+				parent.nameFields[0].setEnabled(p1Name != null);
 			}
 			else
 				parent.nameFields[0].setEnabled(false);
@@ -116,8 +124,14 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.nameFieldCheckboxes[1].isSelected())
 			{
-				// TODO: Ask to select new P2 name file
-				parent.nameFields[1].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.nameFieldCheckboxes[1]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p2Name = selector.getSelectedFile();
+				
+				parent.nameFieldCheckboxes[1].setSelected(p2Name != null);
+				parent.nameFields[1].setEnabled(p2Name != null);
 			}
 			else
 				parent.nameFields[1].setEnabled(false);
@@ -128,10 +142,16 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.scoreFieldCheckboxes[0].isSelected())
 			{
-				// TODO: Ask to select new P1 score file
-				parent.scoreFields[0].setEnabled(true);
-				parent.buttonPlus[0].setEnabled(true);
-				parent.buttonMinus[0].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.scoreFieldCheckboxes[0]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p1Score = selector.getSelectedFile();
+				
+				parent.scoreFieldCheckboxes[0].setEnabled(p1Score != null);
+				parent.scoreFields[0].setEnabled(p1Score != null);
+				parent.buttonPlus[0].setEnabled(p1Score != null);
+				parent.buttonMinus[0].setEnabled(p1Score != null);
 			}
 			else
 			{
@@ -146,10 +166,16 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.scoreFieldCheckboxes[1].isSelected())
 			{
-				// TODO: Ask to select new P2 score file
-				parent.scoreFields[1].setEnabled(true);
-				parent.buttonPlus[1].setEnabled(true);
-				parent.buttonMinus[1].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.scoreFieldCheckboxes[1]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p2Score = selector.getSelectedFile();
+				
+				parent.scoreFieldCheckboxes[1].setEnabled(p2Score != null);
+				parent.scoreFields[1].setEnabled(p2Score != null);
+				parent.buttonPlus[1].setEnabled(p2Score != null);
+				parent.buttonMinus[1].setEnabled(p2Score != null);
 			}
 			else
 			{
@@ -164,8 +190,14 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.iconCheckboxes[0].isSelected())
 			{
-				// TODO: Ask to select new P1 icon file
-				parent.iconBoxes[0].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.iconCheckboxes[0]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p1Icon = selector.getSelectedFile();
+				
+				parent.iconCheckboxes[0].setEnabled(p1Icon != null);
+				parent.iconBoxes[0].setEnabled(p1Icon != null);
 			}
 			else
 				parent.iconBoxes[0].setEnabled(false);
@@ -176,8 +208,14 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.iconCheckboxes[1].isSelected())
 			{
-				// TODO: Ask to select new P2 icon file
-				parent.iconBoxes[1].setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.iconCheckboxes[1]);
+				if(result == JFileChooser.APPROVE_OPTION)
+					p2Icon = selector.getSelectedFile();
+				
+				parent.iconCheckboxes[1].setEnabled(p2Icon != null);
+				parent.iconBoxes[1].setEnabled(p2Icon != null);
 			}
 			else
 				parent.iconBoxes[1].setEnabled(false);
@@ -188,8 +226,14 @@ public class TSAEngine implements ActionListener {
 		{
 			if(parent.descriptionCheckbox.isSelected())
 			{
-				// TODO: Ask to select new description file
-				parent.descriptionField.setEnabled(true);
+				JFileChooser selector = new JFileChooser();
+				selector.setCurrentDirectory(null);
+				int result = selector.showOpenDialog(parent.descriptionCheckbox);
+				if(result == JFileChooser.APPROVE_OPTION)
+					description = selector.getSelectedFile();
+				
+				parent.descriptionCheckbox.setEnabled(description != null);
+				parent.descriptionField.setEnabled(description != null);
 			}
 			else
 				parent.descriptionField.setEnabled(false);
